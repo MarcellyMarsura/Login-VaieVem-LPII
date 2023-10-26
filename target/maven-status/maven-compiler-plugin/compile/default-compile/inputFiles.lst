@@ -1,4 +1,11 @@
-C:\Users\m.molinari.marsura\Documents\1 DESKTOP\Faculdade\EC6\Linguagem de Programação II\Login-VaieVem\Login-VaieVem\VaieVem\src\main\java\br\edu\fesa\vaievem\LoginController.java
-C:\Users\m.molinari.marsura\Documents\1 DESKTOP\Faculdade\EC6\Linguagem de Programação II\Login-VaieVem\Login-VaieVem\VaieVem\src\main\java\module-info.java
-C:\Users\m.molinari.marsura\Documents\1 DESKTOP\Faculdade\EC6\Linguagem de Programação II\Login-VaieVem\Login-VaieVem\VaieVem\src\main\java\br\edu\fesa\vaievem\App.java
-C:\Users\m.molinari.marsura\Documents\1 DESKTOP\Faculdade\EC6\Linguagem de Programação II\Login-VaieVem\Login-VaieVem\VaieVem\src\main\java\br\edu\fesa\vaievem\CadastroUsuarioController.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\CadastroUsuarioController.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\dao\interfaces\IUsuarioDAO.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\main\Main.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\model\Usuario.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\module-info.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\dao\interfaces\IGenericoDAO.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\App.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\dao\UsuarioDAO.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\dao\Conexao.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\exception\PersistenciaException.java
+C:\Users\HP\Documents\Git\Projetos\Faculdade\Login-VaieVem-LPII\src\main\java\br\edu\fesa\vaievem\LoginController.java
