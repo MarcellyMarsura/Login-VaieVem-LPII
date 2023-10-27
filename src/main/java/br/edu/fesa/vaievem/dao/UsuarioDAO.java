@@ -21,7 +21,8 @@ public class UsuarioDAO implements IUsuarioDAO {
             result.getLong("ID_USUARIO"),
             result.getString("NOME"),
             result.getString("EMAIL"),
-            result.getString("SENHA")
+            result.getString("SENHA"),
+            result.getBoolean("ATIVO")
         );
     }
     
@@ -64,7 +65,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     
     @Override
     public Usuario listarPorId(Usuario usuario) throws PersistenciaException {
-        Usuario retorno = new Usuario();
+        Usuario retorno = null;
         String sql = "SELECT * FROM USUARIO.TB_USUARIO WHERE ID_USUARIO = ?";
         Connection connection = null;
         
@@ -103,7 +104,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     
     @Override
     public Usuario listarPorEmail(Usuario usuario) throws PersistenciaException {
-        Usuario retorno = new Usuario();
+        Usuario retorno = null;
         String sql = "SELECT * FROM USUARIO.TB_USUARIO WHERE EMAIL = ?";
         Connection connection = null;
         
@@ -139,11 +140,49 @@ public class UsuarioDAO implements IUsuarioDAO {
 
         return retorno;
     }
+    
+    @Override
+    public List<Usuario> listarAtivos() throws PersistenciaException {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM USUARIO.TB_USUARIO WHERE ATIVO = true";
+        Connection connection = null;
+        
+        try{
+            connection = Conexao.getInstance().getConnection();
+            
+            PreparedStatement pStatement = connection.prepareStatement(sql);
+            ResultSet result = pStatement.executeQuery();
+            
+            while (result.next()) {
+                usuarios.add(ConverteResultParaUsuario(result));
+            }
+        
+        } catch(ClassNotFoundException ex){
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Não foi possível carregar o driver de conexão com a base de dados");
 
+        } catch(SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Erro ao enviar o comando para a base de dados");
+
+        } finally {
+            try {
+                if(connection != null && ! connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return usuarios;
+    }
+    
+    
     @Override
     public void inserir(Usuario usuario) throws PersistenciaException {
 
-        String sql = "INSERT INTO USUARIO.TB_USUARIO (NOME, EMAIL, SENHA) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO USUARIO.TB_USUARIO (NOME, EMAIL, SENHA, ATIVO) VALUES (?, ?, ?, ?)";
         Connection connection = null;
         
         try{
@@ -153,6 +192,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             pStatement.setString(1, usuario.getNome());
             pStatement.setString(2, usuario.getEmail());
             pStatement.setString(3, usuario.getSenha());
+            pStatement.setBoolean(4, usuario.isAtivo());
 
             pStatement.execute();
             
@@ -177,17 +217,23 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public void alterar(Usuario usuario) throws PersistenciaException {
-        String sql = "UPDATE USUARIO.TB_USUARIO SET NOME = ?, EMAIL = ?, SENHA = ? WHERE ID_USUARIO = ?";
+        String sql = "UPDATE USUARIO.TB_USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, ATIVO = ? WHERE ID_USUARIO = ?";
         Connection connection = null;
         
         try{
-            connection = Conexao.getInstance().getConnection();
             
+            if(listarPorId(usuario) == null){
+                throw new PersistenciaException("Usuário não localizado");
+            }
+            
+            connection = Conexao.getInstance().getConnection();
+                        
             PreparedStatement pStatement = connection.prepareStatement(sql);
             pStatement.setString(1, usuario.getNome());
             pStatement.setString(2, usuario.getEmail());
             pStatement.setString(3, usuario.getSenha());
-            pStatement.setLong(4, usuario.getIdUsuario());
+            pStatement.setBoolean(4, usuario.isAtivo());
+            pStatement.setLong(5, usuario.getIdUsuario());
 
             pStatement.execute();
             
@@ -216,6 +262,11 @@ public class UsuarioDAO implements IUsuarioDAO {
         Connection connection = null;
         
         try{
+            
+            if(listarPorId(usuario) == null){
+                return;
+            }
+            
             connection = Conexao.getInstance().getConnection();
             
             PreparedStatement pStatement = connection.prepareStatement(sql);

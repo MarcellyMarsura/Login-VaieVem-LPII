@@ -9,8 +9,17 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
+    private boolean ativo;
 
     public Usuario() {
+    }
+    
+    public Usuario(Long idUsuario, String nome, String email, String senha, boolean ativo) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.ativo = ativo;
     }
     
     public Usuario(Long idUsuario, String nome, String email, String senha) {
@@ -18,6 +27,7 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.ativo = true;
     }
     
     public Usuario(Long idUsuario) {
@@ -56,4 +66,12 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
 }
