@@ -6,6 +6,7 @@ import br.edu.fesa.vaievem.dao.interfaces.IUsuarioDAO;
 import br.edu.fesa.vaievem.exception.PersistenciaException;
 import br.edu.fesa.vaievem.model.Usuario;
 import br.edu.fesa.vaievem.service.interfaces.IUsuarioService;
+import br.edu.fesa.vaievem.utils.Security;
 import java.util.List;
 
 
@@ -17,6 +18,14 @@ public class UsuarioService implements IUsuarioService {
         usuarioDao = new UsuarioDAO();
     }
     
+    private void PreparaUsuario(Usuario usuario) throws PersistenciaException {
+        
+        if(usuarioDao.listarPorEmail(usuario) != null){
+            throw new PersistenciaException("E-mail já cadastrado");
+        }  
+        
+        usuario.setSenha(Security.EncriptaString(usuario.getSenha()));
+    }
     
     @Override
     public List<Usuario> listar() throws PersistenciaException {
@@ -42,11 +51,7 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void inserir(Usuario usuario) throws PersistenciaException {
         
-        if(usuarioDao.listarPorEmail(usuario) != null){
-            throw new PersistenciaException("E-mail já cadastrado");
-        }    
-        
-        // TODO Encriptar a senha
+        PreparaUsuario(usuario);
         
         usuarioDao.inserir(usuario);    
     }
@@ -54,20 +59,26 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void alterar(Usuario usuario) throws PersistenciaException {
         
-        // TODO Encriptar a senha
+        PreparaUsuario(usuario);
 
-        usuarioDao.inserir(usuario);    
+        usuarioDao.alterar(usuario);    
     }
 
     @Override
     public void remover(Usuario usuario) throws PersistenciaException {
-        usuarioDao.inserir(usuario);    
+        usuarioDao.remover(usuario);    
     }
     
     
-    public boolean autenticaUsuario(Usuario usuario) throws PersistenciaException{
-        // TODO Implementar
-        throw new PersistenciaException("Não implementado");
+    public boolean autenticaUsuario(Usuario usuarioForm) throws PersistenciaException{
+        
+        Usuario usuarioDB = listarPorEmail(usuarioForm);
+        
+        if(usuarioDB == null){
+            return false;
+        }
+        
+        return Security.ComparaSenha(usuarioDB.getSenha(), usuarioForm.getSenha());
     }
 
 }

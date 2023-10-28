@@ -1,9 +1,10 @@
 
 package br.edu.fesa.vaievem.main;
 
-import br.edu.fesa.vaievem.dao.UsuarioDAO;
 import br.edu.fesa.vaievem.exception.PersistenciaException;
 import br.edu.fesa.vaievem.model.Usuario;
+import br.edu.fesa.vaievem.service.UsuarioService;
+import br.edu.fesa.vaievem.service.interfaces.IUsuarioService;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,18 +12,19 @@ import java.util.logging.Logger;
 
 public class Main {
     
-    private static UsuarioDAO usuarioDAO = null;
+    private static IUsuarioService usuarioService = null;
     
     public static void main(String[] args) {
-        usuarioDAO = new UsuarioDAO();
+        usuarioService = new UsuarioService();
         
-        Listar();
+        //Listar();
         //ListarPorId();
         //ListarPorEmail();
         //ListarAtivos();
         //Inserir();
         //Alterar();
         //Excluir();
+        Autenticar();
 
     }
 
@@ -31,8 +33,8 @@ public class Main {
     public static void Inserir(){
         
         try {
-            Usuario novo = new Usuario((long)1, "Vinicius", "Vinicius@email.com", "SenhaSegura");
-            usuarioDAO.inserir(novo);
+            Usuario novo = new Usuario((long)1, "Analuz", "Analuz@email.com", "SenhaSegura");
+            usuarioService.inserir(novo);
         } catch (PersistenciaException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,7 +45,7 @@ public class Main {
         
         try {
             Usuario alterar = new Usuario((long)1, "Vinicius Benevides", "ViniciusBenevides@email.com", "SenhaNãoTãoSegura", false);
-            usuarioDAO.alterar(alterar);
+            usuarioService.alterar(alterar);
         } catch (PersistenciaException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,7 +56,7 @@ public class Main {
             // Ou envia o objeto completo, ou apenas com id
             //Usuario excluir = new Usuario((long)1, "Vinicius Benevides", "ViniciusBenevides@email.com", "SenhaNãoTãoSegura");
             Usuario excluir = new Usuario((long)1);
-            usuarioDAO.remover(excluir);
+            usuarioService.remover(excluir);
         } catch (PersistenciaException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,7 +65,7 @@ public class Main {
     public static void Listar(){
         
         try {
-            List<Usuario> usuarios = usuarioDAO.listar();
+            List<Usuario> usuarios = usuarioService.listar();
              
             for(Usuario usuario : usuarios){
                 System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
@@ -79,7 +81,7 @@ public class Main {
             // Ou envia o objeto completo, ou apenas com id
             //Usuario pesquisado = new Usuario((long)1, "Vinicius Benevides", "ViniciusBenevides@email.com", "SenhaNãoTãoSegura");
             Usuario pesquisado = new Usuario((long)2);
-            Usuario encontrado = usuarioDAO.listarPorId(pesquisado);  
+            Usuario encontrado = usuarioService.listarPorId(pesquisado);  
             
             if(encontrado == null){
                 System.out.println("Usuario não encontrado");
@@ -98,7 +100,7 @@ public class Main {
             // Ou envia o objeto completo, ou apenas com id
             //Usuario pesquisado = new Usuario((long)1, "Vinicius Benevides", "ViniciusBenevides@email.com", "SenhaNãoTãoSegura");
             Usuario pesquisado = new Usuario("Vinicius@email.com");
-            Usuario encontrado = usuarioDAO.listarPorEmail(pesquisado);  
+            Usuario encontrado = usuarioService.listarPorEmail(pesquisado);  
             
             if(encontrado == null){
                 System.out.println("Usuario não encontrado");
@@ -113,7 +115,7 @@ public class Main {
     public static void ListarAtivos(){
         
         try {
-            List<Usuario> usuarios = usuarioDAO.listarAtivos();
+            List<Usuario> usuarios = usuarioService.listarAtivos();
              
             for(Usuario usuario : usuarios){
                 System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
@@ -123,4 +125,18 @@ public class Main {
         }
     }
 
+    public static void Autenticar(){
+        try {
+            Usuario usuario = new Usuario("Nicolas@email.com", "SenhaSegura");
+            
+            if(usuarioService.autenticaUsuario(usuario)) {
+                System.out.println("Autenticado");
+            } else{
+                System.out.println("Invalido");
+            }
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
