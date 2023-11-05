@@ -14,6 +14,12 @@ public class Session {
     }
     
     public static void setUsuarioLogado(Usuario usuarioLogado) {
+        RemoveUsuarioLogado();
+        
+        if(!usuarioLogado.isAtivo()){
+            return;
+        }
+        
         Session.usuarioLogado = usuarioLogado;
     }
     

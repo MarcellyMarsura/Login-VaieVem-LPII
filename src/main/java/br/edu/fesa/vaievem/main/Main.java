@@ -5,6 +5,7 @@ import br.edu.fesa.vaievem.exception.PersistenciaException;
 import br.edu.fesa.vaievem.model.Usuario;
 import br.edu.fesa.vaievem.service.UsuarioService;
 import br.edu.fesa.vaievem.service.interfaces.IUsuarioService;
+import br.edu.fesa.vaievem.utils.Session;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,19 +18,132 @@ public class Main {
     public static void main(String[] args) {
         usuarioService = new UsuarioService();
         
-        //Listar();
-        //ListarPorId();
-        //ListarPorEmail();
-        //ListarAtivos();
-        //Inserir();
-        //Alterar();
-        //Excluir();
-        Autenticar();
+        //listar();
+        autenticaUsuario();
+        //cadastraUsuario();
+        //atualizaDados();
+        //atualizaSenha();
+        //inativar();
+    }
 
+    public static void listar(){
+        
+        try {
+            List<Usuario> usuarios = usuarioService.listar();
+             
+            for(Usuario usuario : usuarios){
+                System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
+            }
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void autenticaUsuario(){
+        try {
+            Usuario usuario = new Usuario("Nicolas@email.com", "abc");
+            
+            if(usuarioService.autenticaUsuario(usuario)) {
+                System.out.println("Autenticado");
+            } else{
+                System.out.println("Invalido");
+            }
+            
+            System.out.println("\nSession:");
+            
+            usuario = Session.getUsuarioLogado();
+            
+            if(usuario == null){
+                return;
+            }
+            
+            System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void cadastraUsuario(){
+        try {
+            Usuario usuario = new Usuario("Analuz", "Analuz@email.com", "SenhaSegura");
+            
+            usuarioService.cadastraUsuario(usuario);
+            
+            listar();
+            
+            System.out.println("\nSession:");
+            
+            usuario = Session.getUsuarioLogado();
+            
+            System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void atualizaDados(){
+        try {
+            Usuario usuario = new Usuario("Nicolas", "Nicolas@email.com", "abc");
+            
+            usuarioService.atualizaDados(usuario);
+            
+            listar();
+            
+            System.out.println("\nSession:");
+            
+            usuario = Session.getUsuarioLogado();
+            
+            System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void atualizaSenha(){
+        try {
+            Usuario usuario = new Usuario("Nicolas@email.com", "abc");
+            
+            usuarioService.atualizaSenha(usuario);
+            
+            listar();
+            
+            System.out.println("\nSession:");
+            
+            usuario = Session.getUsuarioLogado();
+            
+            System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
-    // EXEMPLOS DE USOS DA DAO
+    public static void inativar(){
+        try {
+            
+            usuarioService.inativar();
+            
+            listar();
+            
+            if(Session.UsuarioEstaLogado()){
+                System.out.println("Usuario logado");
+            } else {
+                System.out.println("Usuario NÃO logado");
+            }
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
     public static void Inserir(){
         
         try {
@@ -57,19 +171,6 @@ public class Main {
             //Usuario excluir = new Usuario((long)1, "Vinicius Benevides", "ViniciusBenevides@email.com", "SenhaNãoTãoSegura");
             Usuario excluir = new Usuario((long)1);
             usuarioService.remover(excluir);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public static void Listar(){
-        
-        try {
-            List<Usuario> usuarios = usuarioService.listar();
-             
-            for(Usuario usuario : usuarios){
-                System.out.println(usuario.getIdUsuario() + " | " + usuario.getNome() + " | " + usuario.getEmail() + " | " + usuario.getSenha() + " | " + usuario.isAtivo());
-            }
         } catch (PersistenciaException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,18 +226,4 @@ public class Main {
         }
     }
 
-    public static void Autenticar(){
-        try {
-            Usuario usuario = new Usuario("Nicolas@email.com", "SenhaSegura");
-            
-            if(usuarioService.autenticaUsuario(usuario)) {
-                System.out.println("Autenticado");
-            } else{
-                System.out.println("Invalido");
-            }
-            
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
