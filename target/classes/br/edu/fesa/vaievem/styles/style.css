@@ -1,7 +1,7 @@
-.text-input
-{
-    -fx-text-fill : #ffffff;
-    -fx-prompt-text-fill:#D4CEE3;
+.card {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+    -fx-background-radius: 10;
+    -fx-background-color: #ffffff;
 }
 
 .button1
@@ -24,73 +24,50 @@
 }
 .button2:pressed
 {
--fx-background-color : rgba(0, 0, 0, 0.3); ;
+-fx-background-color : rgba(0, 0, 0, 0.3);
 
 }
 
-.button3
+.round-button
 {
-    -fx-background-color :linear-gradient(to top left, #35ACF1, #F6B46F);
-    -fx-background-radius :  12;
-    -fx-border-style: solid;
-    -fx-border-radius: 12;
-    -fx-border-insets: -5;    
-    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
-    
+    -fx-background-color:  #6332ac;
+    -fx-background-radius :  20;
 }
-.button3:hover
+.round-button:hover
 {
-    -fx-background-color :linear-gradient(to top left,  #F6B46F,#35ACF1);
-    -fx-background-radius :  12;
-    -fx-border-style: solid;
-    -fx-border-radius: 12;
-    -fx-border-insets: -5;
-    -fx-border-color: linear-gradient(to top left, #F6B46F,#35ACF1);
+    -fx-background-color:  #7930e6;
 }
-.button3:pressed
+.round-button:pressed
 {
-   -fx-background-color :linear-gradient(to top left, #35ACF1, #F6B46F);
-    -fx-background-radius :  12;
-    -fx-border-style: solid;
-    -fx-border-radius: 12;
-    -fx-border-insets: -5;
-    -fx-border-color: linear-gradient(to top left, #35ACF1, #F6B46F);
+    -fx-background-color:  #572d96;
 }
 
-.button4
+.back-button
 {
-    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
-    -fx-background-radius :  30 30 30 30;
+    -fx-background-color:  transparent;
+    -fx-background-radius :  20;
 }
-.button4:hover
+.back-button:hover
 {
-    -fx-background-color :linear-gradient(to top left, #D4CEE3, #41951C);
-    -fx-background-radius :  30 30 30 30;
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
-.button4:pressed
+.back-button:pressed
 {
-    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
-    -fx-background-radius :  30 30 30 30;
+    -fx-background-color:  rgba(0, 0, 0, 0.2);
 }
 
-
-.combo-box
+.red-button
 {
-    -fx-background-color : #141124;
-    -fx-border-color:  #515658;
-    -fx-border-radius: 30;
+    -fx-text-fill: #ffffff;
+    -fx-background-color : #d12828;
 }
-.combo-box:hover
+.red-button:hover
 {
-    -fx-background-color : #141124;
-    -fx-border-color:  #FFFF;
-    -fx-border-radius: 30;
+    -fx-background-color : #ad2121;
 }
-.combo-box:pressed
+.red-button:pressed
 {
-    -fx-background-color : #141124;
-    -fx-border-color:  #FFFF;
-    -fx-border-radius: 30;
+    -fx-background-color : #8c1b1b;
 }
 
 .table-view .column-header,
@@ -103,7 +80,7 @@
 
    -fx-text-fill: white;
    -fx-font-weight: bold;
-   -fx-alignment: CENTER_LEFT;
+   -fx-alignment: CENTER;
 }
 
 .table-view .cell{
@@ -121,16 +98,12 @@
 
  }
 
-/* scroll bar starts here */
-
-/* The increment and decrement button CSS class of scrollbar */
 .table-view .increment-button ,.table-view .decrement-button {
     -fx-background-color:transparent;
 	-fx-background-radius: 2em;
 
 }
 
-/* The main scrollbar **track** CSS class  */
 .table-view .scroll-bar:horizontal .track,
 .table-view .scroll-bar:vertical .track{
 	-fx-background-color: transparent;
@@ -139,7 +112,6 @@
 	-fx-border-radius:2em;
 }
 
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .table-view .scroll-bar:horizontal .thumb,
 .table-view .scroll-bar:vertical .thumb {
     -fx-background-color:derive( #2D75E8,90%);
@@ -148,21 +120,6 @@
 
 }
 
-/* chart properties */
-
-.chart {
-    -fx-padding: 10px;
-    -fx-background-color: transparent;
-    -fx-legend-visible: false;
-}
-.chart-plot-background {
-    -fx-background-color:transparent;
-}
-
-.chart-pie {
-    -fx-border-color: derive(-fx-pie-color, 1%);
-    -fx-border-width: 0px;
-}
 .linear-grad
 {
     -fx-background-color: linear-gradient(to bottom left, #B324FF, #329AE0);
