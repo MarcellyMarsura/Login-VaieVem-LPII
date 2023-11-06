@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.fesa.vaievem.utils;
 
 import java.io.PrintWriter;
@@ -15,10 +12,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author m.molinari.marsura
- */
 public class MessageBox {
     
     public static void exibeMensagemErro(Exception ex){    
@@ -55,7 +48,27 @@ public class MessageBox {
     }
     
     public static Optional<ButtonType> exibeAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+
+        return alert.showAndWait();
+    }
+    
+    public static Optional<ButtonType> exibeConfirmacao(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+
+        return alert.showAndWait();
+    }
+    
+    public static Optional<ButtonType> exibeInformacao(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle(titulo);
         alert.setHeaderText(null);

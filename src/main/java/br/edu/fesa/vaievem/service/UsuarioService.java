@@ -10,7 +10,8 @@ import br.edu.fesa.vaievem.utils.Security;
 import br.edu.fesa.vaievem.utils.Session;
 import java.util.List;
 
-
+//TODO: Validação de senha e validação de email (regex)
+//TODO: Verificar se a senha antiga informada na tela é a mesma que a cadastrada (atualizaSenha) 
 public class UsuarioService implements IUsuarioService {
     
     private final IUsuarioDAO usuarioDao;
@@ -40,7 +41,7 @@ public class UsuarioService implements IUsuarioService {
     }
     
     
-    // Métodos especiliazados do service
+    // Métodos especializados do service
     
     @Override
     public boolean autenticaUsuario(Usuario usuarioForm) throws PersistenciaException{

@@ -1,5 +1,8 @@
 package br.edu.fesa.vaievem.controller;
 
+import br.edu.fesa.vaievem.exception.PersistenciaException;
+import br.edu.fesa.vaievem.model.Usuario;
+import br.edu.fesa.vaievem.service.UsuarioService;
 import br.edu.fesa.vaievem.utils.MessageBox;
 import br.edu.fesa.vaievem.utils.Tela;
 import br.edu.fesa.vaievem.utils.ViewConfiguration;
@@ -18,9 +21,12 @@ public class LoginController implements Initializable {
     
     @FXML
     private TextField txtSenha;
+    
+    UsuarioService _usuarioService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        _usuarioService = new UsuarioService();
         ViewConfiguration.setPossuiMenu(false);
     }
     
@@ -38,17 +44,27 @@ public class LoginController implements Initializable {
     @FXML
     private void onMouseClicked_btnEntrar() throws IOException{
         try {
-            String email = txtEmail.getText();
-            String senha = txtSenha.getText();
+            String email = txtEmail.getText().trim();
+            String senha = txtSenha.getText().trim();
             
-            //TODO: Preencher model Usuario e chamar autenticação do service
-            //TODO: Em caso de erro, manter dados na tela
-            ViewConfiguration.mudaTela(Tela.PERFIL.getNome());
+            if(email.isEmpty() || senha.isEmpty()) {
+                throw new PersistenciaException("Preencha todos os campos.");
+            }
+            else {
+                if(!_usuarioService.autenticaUsuario(new Usuario(email, senha))){
+                    txtSenha.clear();
+                    throw new PersistenciaException("Usuário/senha incorretos.");
+                }
+                ViewConfiguration.mudaTela(Tela.PERFIL.getNome());
+            }
+            
+        }
+        catch (PersistenciaException erro) {
+            MessageBox.exibeAlerta("Erro ao autenticar usuário", erro.getMessage());
         }
         catch (Exception erro){
             MessageBox.exibeMensagemErro(erro);
         }
-        
     }
     
 }

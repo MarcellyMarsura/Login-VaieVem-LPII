@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.fesa.vaievem.utils;
 
 import br.edu.fesa.vaievem.App;
@@ -11,13 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- *
- * @author m.molinari.marsura
- */
 public class ViewConfiguration {
     
     private static Scene tela;
