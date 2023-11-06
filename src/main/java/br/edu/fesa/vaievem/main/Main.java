@@ -106,7 +106,7 @@ public class Main {
         try {
             Usuario usuario = new Usuario("Nicolas@email.com", "abc");
             
-            usuarioService.atualizaSenha(usuario);
+            usuarioService.atualizaSenha("abc", "abc");
             
             listar();
             

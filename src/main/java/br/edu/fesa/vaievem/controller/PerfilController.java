@@ -73,13 +73,13 @@ public class PerfilController implements Initializable {
     private void onMouseClicked_btnSalvarSenha() throws IOException {
         try {
             String senhaAntiga = txtSenhaAntiga.getText().trim();
-            String NovaSenha = txtNovaSenha.getText().trim();
+            String senhaNova = txtNovaSenha.getText().trim();
             
-            if(senhaAntiga.isEmpty() || NovaSenha.isEmpty()) {
+            if(senhaAntiga.isEmpty() || senhaNova.isEmpty()) {
                 throw new PersistenciaException("Preencha todos os campos");
             }
             
-            _usuarioService.atualizaSenha(new Usuario("", "", NovaSenha));
+            _usuarioService.atualizaSenha(senhaAntiga, senhaNova);
             
             MessageBox.exibeInformacao("Sucesso!", "Senha atualizada com sucesso.");
         }
@@ -103,7 +103,7 @@ public class PerfilController implements Initializable {
             }
         }
         catch (PersistenciaException erro) {
-            MessageBox.exibeAlerta("Erro ao atualizar senha.", erro.getMessage());
+            MessageBox.exibeAlerta("Erro ao inativar usuário.", erro.getMessage());
         }
         catch (Exception erro){
             MessageBox.exibeMensagemErro(erro);

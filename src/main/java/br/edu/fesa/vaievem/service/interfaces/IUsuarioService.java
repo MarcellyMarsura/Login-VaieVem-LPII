@@ -13,7 +13,7 @@ public interface IUsuarioService extends IService<Usuario> {
     
     void atualizaDados(Usuario usuario) throws PersistenciaException;
     
-    void atualizaSenha(Usuario usuario) throws PersistenciaException;
+    void atualizaSenha(String senhaAntiga, String senhaNova) throws PersistenciaException;
 
     void inativar() throws PersistenciaException;
     
