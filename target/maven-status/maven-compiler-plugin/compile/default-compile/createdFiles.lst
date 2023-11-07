@@ -8,6 +8,7 @@ br\edu\fesa\vaievem\service\interfaces\IUsuarioService.class
 br\edu\fesa\vaievem\App.class
 br\edu\fesa\vaievem\controller\PerfilController.class
 br\edu\fesa\vaievem\controller\MenuController.class
+br\edu\fesa\vaievem\dao\DbProjetoDAO.class
 br\edu\fesa\vaievem\controller\CadastroUsuarioController.class
 br\edu\fesa\vaievem\service\interfaces\IService.class
 br\edu\fesa\vaievem\controller\SobreController.class

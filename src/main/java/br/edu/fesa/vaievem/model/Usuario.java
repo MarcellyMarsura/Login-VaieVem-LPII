@@ -10,6 +10,7 @@ public class Usuario implements Serializable {
     private String email;
     private String senha;
     private boolean ativo = true;
+    private boolean administrador = false;
 
     public Usuario() {
     }
@@ -83,5 +84,11 @@ public class Usuario implements Serializable {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
+    public boolean isAdministrador() {
+        return administrador;
+    }
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
 }

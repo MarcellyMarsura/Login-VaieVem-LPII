@@ -182,7 +182,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public void inserir(Usuario usuario) throws PersistenciaException {
 
-        String sql = "INSERT INTO USUARIO.TB_USUARIO (NOME, EMAIL, SENHA, ATIVO) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO USUARIO.TB_USUARIO (NOME, EMAIL, SENHA, ATIVO, ADMINISTRADOR) VALUES (?, ?, ?, ?, ?)";
         Connection connection = null;
         
         try{
@@ -193,7 +193,8 @@ public class UsuarioDAO implements IUsuarioDAO {
             pStatement.setString(2, usuario.getEmail());
             pStatement.setString(3, usuario.getSenha());
             pStatement.setBoolean(4, usuario.isAtivo());
-
+            pStatement.setBoolean(5, usuario.isAdministrador());
+            
             pStatement.execute();
             
         } catch(ClassNotFoundException ex){
@@ -217,7 +218,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public void alterar(Usuario usuario) throws PersistenciaException {
-        String sql = "UPDATE USUARIO.TB_USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, ATIVO = ? WHERE ID_USUARIO = ?";
+        String sql = "UPDATE USUARIO.TB_USUARIO SET NOME = ?, EMAIL = ?, SENHA = ?, ATIVO = ?, ADMINISTRADOR = ? WHERE ID_USUARIO = ?";
         Connection connection = null;
         
         try{
@@ -233,7 +234,8 @@ public class UsuarioDAO implements IUsuarioDAO {
             pStatement.setString(2, usuario.getEmail());
             pStatement.setString(3, usuario.getSenha());
             pStatement.setBoolean(4, usuario.isAtivo());
-            pStatement.setLong(5, usuario.getIdUsuario());
+            pStatement.setBoolean(5, usuario.isAdministrador());
+            pStatement.setLong(6, usuario.getIdUsuario());
 
             pStatement.execute();
             

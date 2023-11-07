@@ -1,6 +1,7 @@
 
 package br.edu.fesa.vaievem.dao;
 
+import br.edu.fesa.vaievem.exception.PersistenciaException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,14 +12,17 @@ import java.util.ResourceBundle;
 public class Conexao {
     
     private final ResourceBundle DAO = ResourceBundle.getBundle("dao", new Locale("pt", "BR"));
+    private static final DbProjetoDAO dbProjetoDAO = new DbProjetoDAO();
     private static Conexao conexao;
     
     private Conexao(){
     }
     
-    public static Conexao getInstance(){
+    public static Conexao getInstance()  throws PersistenciaException {
         if(conexao == null){
             conexao = new Conexao();
+            
+            dbProjetoDAO.validaDbProjeto();
         }
         
         return conexao;

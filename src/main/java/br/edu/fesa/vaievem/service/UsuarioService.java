@@ -9,11 +9,8 @@ import br.edu.fesa.vaievem.service.interfaces.IUsuarioService;
 import br.edu.fesa.vaievem.utils.Security;
 import br.edu.fesa.vaievem.utils.Session;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//TODO: Validação de senha e validação de email (regex)
-//TODO: Verificar se a senha antiga informada na tela é a mesma que a cadastrada (atualizaSenha) 
 public class UsuarioService implements IUsuarioService {
     
     private final IUsuarioDAO usuarioDao;
